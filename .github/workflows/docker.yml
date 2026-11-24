@@ -40,20 +40,30 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/nas-music-box:${{ steps.ver.outputs.version }}
             ghcr.io/${{ github.repository_owner }}/nas-music-box:latest
             ghcr.io/${{ github.repository_owner }}/nas-music-box:${{ steps.ver.outputs.version }}
+      - name: 打包镜像离线包
+        run: |
+          ver="${{ steps.ver.outputs.version }}"
+          img="${{ secrets.DOCKERHUB_USERNAME }}/nas-music-box"
+          docker pull "$img:$ver"
+          docker tag "$img:$ver" "$img:latest"
+          docker save "$img:$ver" "$img:latest" -o "nas-music-box-$ver-amd64.tar"
+          ls -lh "nas-music-box-$ver-amd64.tar"
       - name: 发布 Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          v="v${{ steps.ver.outputs.version }}"
-          if gh release view "$v" >/dev/null 2>&1; then
-            echo "Release $v 已存在，跳过"
-            exit 0
+          ver="${{ steps.ver.outputs.version }}"
+          v="v$ver"
+          if ! gh release view "$v" >/dev/null 2>&1; then
+            awk -v h="## $v" '$0==h{f=1;next} /^## /{f=0} f' CHANGELOG.md > notes.md
+            {
+              echo
+              echo "Docker 镜像：\`${{ github.repository_owner }}/nas-music-box:$ver\`"
+              echo
+              echo "拉取镜像超时的话，下载下面的 \`nas-music-box-$ver-amd64.tar\` 离线导入（\`docker load -i\`，群晖在「映像 → 新增 → 从文件添加」）。"
+            } >> notes.md
+            gh release create "$v" --target "$GITHUB_SHA" --title "$v" --notes-file notes.md
           fi
-          awk -v h="## $v" '$0==h{f=1;next} /^## /{f=0} f' CHANGELOG.md > notes.md
-          {
-            echo
-            echo "Docker 镜像：\`${{ github.repository_owner }}/nas-music-box:${{ steps.ver.outputs.version }}\`"
-          } >> notes.md
-          files=""
-          if [ -f android/nas-music-box.apk ]; then files="android/nas-music-box.apk"; fi
-          gh release create "$v" --target "$GITHUB_SHA" --title "$v" --notes-file notes.md $files
+          files="nas-music-box-$ver-amd64.tar"
+          if [ -f android/nas-music-box.apk ]; then files="$files android/nas-music-box.apk"; fi
+          gh release upload "$v" $files --clobber

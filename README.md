@@ -118,7 +118,7 @@ docker compose up -d --build
 ## 使用
 
 1. 打开 `http://NAS的IP:8090`，第一次会进入设置页。
-2. 点「扫码登录」，用**米家 App**或者**小米音箱 app**扫码确认。
+2. 点「扫码登录」，用**米家 App** 或**小米音箱 App** 扫码确认。
 
    <img src="docs/images/03-qr-login.webp" width="480">
 

@@ -42,7 +42,7 @@
 ```yaml
 services:
   nas-music-box:
-    image: ghcr.io/ximilobot/nas-music-box:latest
+    image: ximilobot/nas-music-box:latest
     container_name: nas-music-box
     restart: unless-stopped
     network_mode: host          # 推荐，自动识别 NAS 的局域网 IP
@@ -66,12 +66,14 @@ docker run -d --name nas-music-box --restart unless-stopped \
   -e TZ=Asia/Shanghai \
   -v /你的音乐目录:/music:ro \
   -v /你的数据目录:/data \
-  ghcr.io/ximilobot/nas-music-box:latest
+  ximilobot/nas-music-box:latest
 ```
+
+> 镜像在 [Docker Hub](https://hub.docker.com/r/ximilobot/nas-music-box)，同时发布到 `ghcr.io/ximilobot/nas-music-box`，Docker Hub 拉不动可以换这个地址试试。
 
 ### 方式三：从源码构建
 
-镜像拉不动（国内访问 `ghcr.io` 经常很慢）时用这个。
+想自己改代码，或者镜像拉不下来时用这个。仓库里的 `docker-compose.yml` 就是给这种方式用的。
 
 ```bash
 git clone https://github.com/ximilobot/nas-music-box.git

@@ -1,5 +1,5 @@
 # NAS 音乐盒 服务端镜像（amd64）
-# 国内网络可通过构建参数换源，见 README「国内网络」一节：
+# 国内网络可通过构建参数换源（在 docker-compose.yml 的 build.args 里填）：
 #   BASE_IMAGE   基础镜像（Docker Hub 拉不动时换成镜像站地址）
 #   APT_MIRROR   Debian 软件源主机名，如 mirrors.ustc.edu.cn
 #   PIP_INDEX_URL pip 源，如 https://pypi.tuna.tsinghua.edu.cn/simple

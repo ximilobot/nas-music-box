@@ -22,7 +22,7 @@
 ```yaml
 services:
   nas-music-box:
-    image: ghcr.io/ximilobot/nas-music-box:latest
+    image: ximilobot/nas-music-box:latest
     container_name: nas-music-box
     restart: unless-stopped
     network_mode: host
@@ -37,7 +37,9 @@ services:
 4. 一路下一步（「网页门户」不用设置），勾选「项目创建后立即启动」，完成。
 5. 等镜像拉取完、容器显示运行中，浏览器打开 `http://NAS的IP:8090`。
 
-镜像拉不下来：国内访问 `ghcr.io` 经常很慢或超时，多试几次，或者让 NAS 走代理。
+也可以不用项目：在 Container Manager →「注册表」里搜索 `ximilobot/nas-music-box`，下载 `latest`，再到「映像」里用它新建容器，网络选 host，按上面 `volumes` 的两行挂载文件夹。
+
+镜像拉不下来：国内访问 Docker Hub 经常超时，需要给 NAS 配镜像加速或代理；也可以把 yml 里的镜像名换成 `ghcr.io/ximilobot/nas-music-box:latest` 试试。
 
 ## 3. 网络
 

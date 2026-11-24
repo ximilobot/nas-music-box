@@ -298,6 +298,7 @@ class Player:
         self.state = "paused"
         self._ext_paused = False
         self._paused_at = time.monotonic()
+        self._pause_refetch, self._pause_warned = False, False
         self._notify()
 
     def _freeze_pos(self):
@@ -514,6 +515,11 @@ class Player:
         if self.state == "playing" and self.elapsed() >= max(dur * 0.8, dur - 20):
             log.info("音箱重新从头拉流，判定一曲结束：%s", self.song["title"])
             asyncio.get_running_loop().create_task(self._finished(self.gen))
+        elif self.state == "paused" and not self._ext_paused:
+            # 手动暂停期间音箱又从头拉流：记下来，配合「播放中」状态才认定它恢复了
+            self._pause_refetch = True
+            self._play_acc, self._play_since = 0.0, None
+            self._notify()
         elif self.elapsed() > 3:
             # 曲中又从头拉流：音箱被打断后从头重放了，进度归零
             log.info("音箱在曲中从头重新拉流，进度归零：%s", self.song["title"])
@@ -667,10 +673,20 @@ class Player:
         poll = float(self.settings["status_poll_sec"])
         near_margin = max(5.0, 2 * poll)
 
+        if self.state == "paused" and playing and not self._ext_paused and not self._has_pos \
+                and not getattr(self, "_pause_refetch", False):
+            # 手动暂停后，不报进度的音箱（如 OH2P）仍可能上报「播放中」，单凭这个状态不能当作恢复播放，
+            # 否则进度条会自己接着走、走完还会切到下一首。只有音箱又从头拉了这首歌才算它真的恢复了。
+            if not getattr(self, "_pause_warned", False):
+                self._pause_warned = True
+                log.info("已手动暂停，音箱仍上报播放中（status=%s），保持暂停", st.get("status"))
+            if changed:
+                self._notify()
+            return
         if self.state == "paused":
             if playing and (self._ext_paused or time.monotonic() - self._paused_at > 6 * self.fast):
                 # 音箱自己恢复了（例如用户说「继续播放」，或答完话自动续播）
-                if self._ext_paused and not self._has_pos:
+                if not self._has_pos:
                     # 这类音箱被打断后是从头重放的，进度跟着归零，免得进度条走完歌还没唱完就切歌
                     log.info("音箱被打断后自行恢复播放，按从头重放处理，进度归零：%s", (self.song or {}).get("title"))
                     self._play_acc, self._play_since = 0.0, None

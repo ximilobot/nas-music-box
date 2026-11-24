@@ -323,6 +323,26 @@ class TestPlayer(Base):
         self.assertLess(self.player.position(), 5)
         self.assertEqual(len(self.sp.play_log), 2)
 
+    async def test_02c2_manual_pause_stays_paused(self):
+        """手动暂停后音箱仍上报播放中：保持暂停，进度不走、不切歌；从头重新拉流 + 播放中才算恢复。"""
+        self.sp.report_position = False
+        self.sp.sim_duration_ms = 60000
+        await self.player.play_queue(self.ids, 0, "测试")
+        self.player.song["duration"] = 60
+        await wait_for(lambda: self.player.state == "playing", msg="开始播放")
+        self.player._play_acc += 20
+        self.player.fast = 0.05                 # 暂停状态下也快速轮询
+        await self.player.pause()
+        self.sp.status = 1                      # 音箱谎报「播放中」
+        pos = self.player.position()
+        await asyncio.sleep(1.5)
+        self.assertEqual(self.player.state, "paused", "手动暂停后不应自行恢复")
+        self.assertAlmostEqual(self.player.position(), pos, delta=0.5)
+        self.assertEqual(len(self.sp.play_log), 1, "不应切歌")
+        self.app.media.on_fetch(self.ids[0], True)
+        await wait_for(lambda: self.player.state == "playing", timeout=9, msg="重新拉流后识别到恢复")
+        self.assertLess(self.player.position(), 5, "恢复后进度应归零")
+
     async def test_02d_yield_when_speaker_plays_other_content(self):
         """音箱改播别的内容：让出控制，不再发指令；音箱回头重新拉我们的歌则恢复。"""
         self.sp.sim_duration_ms = 60000

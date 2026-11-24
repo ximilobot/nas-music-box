@@ -39,7 +39,15 @@ services:
 
 也可以不用项目：在 Container Manager →「注册表」里搜索 `ximilobot/nas-music-box`，下载 `latest`，再到「映像」里用它新建容器，网络选 host，按上面 `volumes` 的两行挂载文件夹。
 
-镜像拉不下来：国内访问 Docker Hub 经常超时，需要给 NAS 配镜像加速或代理；也可以把 yml 里的镜像名换成 `ghcr.io/ximilobot/nas-music-box:latest` 试试。
+### 镜像拉不下来（离线导入）
+
+国内访问 Docker Hub 经常超时。可以直接下载镜像离线包导入：
+
+1. 在电脑上打开 [Releases](https://github.com/ximilobot/nas-music-box/releases)，下载最新版本里的 `nas-music-box-版本号-amd64.tar`，不要解压。
+2. Container Manager →「映像」→「新增」→「从文件添加」，选这个文件上传。
+3. 导入后映像列表里会出现 `ximilobot/nas-music-box`（标签 `latest`），再按上面的步骤新建项目即可，不会再联网拉取。
+
+以后升级也一样：下载新版离线包导入，再到项目里重新构建。
 
 ## 3. 网络
 

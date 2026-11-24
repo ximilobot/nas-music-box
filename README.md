@@ -70,6 +70,14 @@ docker run -d --name nas-music-box --restart unless-stopped \
 ```
 
 > 镜像在 [Docker Hub](https://hub.docker.com/r/ximilobot/nas-music-box)，同时发布到 `ghcr.io/ximilobot/nas-music-box`，Docker Hub 拉不动可以换这个地址试试。
+>
+> **拉取超时？** 到 [Releases](https://github.com/ximilobot/nas-music-box/releases) 下载镜像离线包 `nas-music-box-版本号-amd64.tar`，然后导入：
+>
+> ```bash
+> docker load -i nas-music-box-版本号-amd64.tar
+> ```
+>
+> 导入后镜像名就是 `ximilobot/nas-music-box:latest`，上面两种方式照常用，不会再联网拉取。
 
 ### 方式三：从源码构建
 

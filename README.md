@@ -20,13 +20,9 @@
 
 ## 截图
 
-<!-- 截图占位：把图片传到 docs/images/ 后，删掉这一行和下面一行的注释符号即可显示
 | 曲库 | 播放页 | 设置 |
 | :---: | :---: | :---: |
 | <img src="docs/images/01-library.webp" width="240"> | <img src="docs/images/02-player.webp" width="240"> | <img src="docs/images/04-settings.webp" width="240"> |
--->
-
-> 📷 截图待补：`01-library.webp` 曲库页、`02-player.webp` 播放页、`04-settings.webp` 设置页
 
 ## 部署
 
@@ -112,11 +108,7 @@ docker compose up -d --build
 
 </details>
 
-**群晖用户**：图文步骤、防火墙、权限、国内网络换源见 [群晖部署详解](docs/synology.md)。
-
-<!-- 截图占位：<img src="docs/images/05-synology.webp" width="720"> -->
-
-> 📷 截图待补：`05-synology.webp` 群晖 Container Manager 项目运行中
+**群晖用户**：在 Container Manager 里拉取镜像部署的步骤见 [群晖部署](docs/synology.md)。
 
 > [!WARNING]
 > 不要把 8090 端口映射到公网。这个服务能控制你家音箱，并保存着小米账号的登录凭据。
@@ -124,11 +116,9 @@ docker compose up -d --build
 ## 使用
 
 1. 打开 `http://NAS的IP:8090`，第一次会进入设置页。
-2. 点「扫码登录」，用**米家 App** 扫码确认。
+2. 点「扫码登录」，用**米家 App**或者**小米音箱 app**扫码确认。
 
-   <!-- 截图占位：<img src="docs/images/03-qr-login.webp" width="240"> -->
-
-   > 📷 截图待补：`03-qr-login.webp` 扫码登录（二维码请打码）
+   <img src="docs/images/03-qr-login.webp" width="480">
 
 3. 在「音箱」里选中要用的那台。
 4. 到「曲库」确认歌曲已扫描出来，点一首试播。加了新歌要点「重新扫描」。
@@ -182,7 +172,7 @@ git pull && docker compose up -d --build         # 源码构建
 
 ## 更多文档
 
-- [群晖部署详解](docs/synology.md)
+- [群晖部署](docs/synology.md)
 - [语音点歌和口令](docs/voice.md)
 - [配置、排障与实现说明](docs/reference.md)（配置项、排障表、稳定性做法、实测情况、开发与测试）
 

@@ -137,6 +137,7 @@ class Player:
         self.history = []
         self._skip_streak = 0
         self.mgr.save_state()
+        log.info("播放新队列（%s）：共 %d 首，从第 %d 首开始", source or "未命名", len(ids), self.index + 1)
         await self._start_current()
 
     def enqueue(self, ids: list[int], play_next: bool = False):
@@ -182,6 +183,8 @@ class Player:
             self.history = self.history[-200:]
         self.index = nxt
         self.mgr.save_state()
+        if not auto:
+            log.info("手动/口令切到下一首")
         await self._start_current()
 
     async def prev(self):
@@ -192,6 +195,7 @@ class Player:
         else:
             self.index = (self.index - 1) % len(self.queue)
         self.mgr.save_state()
+        log.info("手动/口令切到上一首")
         await self._start_current()
 
     async def play_index(self, pos: int):
@@ -200,6 +204,7 @@ class Player:
                 self.history.append(self.index)
             self.index = pos
             self.mgr.save_state()
+            log.info("手动点播队列第 %d 首", pos + 1)
             await self._start_current()
 
     # ------------------------------------------------------------------ 下发播放
@@ -293,6 +298,7 @@ class Player:
         if self.state not in ("playing", "starting"):
             return
         await self.cloud.player_op(self.device_id, "pause")
+        log.info("手动/口令暂停：%s（已播 %d 秒）", (self.song or {}).get("title"), int(self.elapsed()))
         self._clock_stop()
         self._freeze_pos()
         self.state = "paused"

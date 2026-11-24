@@ -3,7 +3,7 @@ __pycache__/
 .venv/
 node_modules/
 data/
-*.apk
+# *.apk
 *.jks
 keystore.pass
 keystore/

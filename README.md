@@ -145,7 +145,7 @@ docker compose up -d --build
 
 ### 安卓 App
 
-源码在 [`android/`](android/)，仓库里不放 APK；Releases 页面有就从那里下载，没有就按 [`android/README.md`](android/README.md) 自己构建。装好后填 `http://NAS的IP:8090` 即可。
+在 [Releases](https://github.com/ximilobot/nas-music-box/releases) 页面下载 APK（没有附带的话，按 [`android/README.md`](android/README.md) 自己构建）。装好后填 `http://NAS的IP:8090` 即可。
 
 ### 升级
 
@@ -173,6 +173,8 @@ git pull && docker compose up -d --build         # 源码构建
 **依赖**：小米云端的非公开接口，接口变了就会失效。
 
 ## 更多文档
+
+- [更新记录](CHANGELOG.md)，各版本也可以在 [Releases](https://github.com/ximilobot/nas-music-box/releases) 页面看
 
 - [群晖部署](docs/synology.md)
 - [语音点歌和口令](docs/voice.md)

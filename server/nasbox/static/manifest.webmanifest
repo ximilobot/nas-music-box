@@ -1,0 +1,16 @@
+{
+  "name": "NAS 音乐盒",
+  "short_name": "NAS 音乐盒",
+  "description": "让小爱音箱播放 NAS 上的本地歌曲",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111315",
+  "theme_color": "#e2542c",
+  "lang": "zh-CN",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自适应图标前景：左边一只音箱（高音 + 低音单元镂空），右边一个音符。内容落在中央 66dp 安全区内 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 音箱箱体，两个单元用 evenOdd 镂空 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M35,29h20a6,6 0 0 1 6,6v38a6,6 0 0 1 -6,6h-20a6,6 0 0 1 -6,-6v-38a6,6 0 0 1 6,-6z M41,41a4,4 0 1 0 8,0a4,4 0 1 0 -8,0z M35,62a10,10 0 1 0 20,0a10,10 0 1 0 -20,0z" />
+    <!-- 低音单元中心 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M41,62a4,4 0 1 0 8,0a4,4 0 1 0 -8,0z" />
+    <!-- 音符：符头 + 符干 + 符尾 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M65,67a6.5,6.5 0 1 0 13,0a6.5,6.5 0 1 0 -13,0z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M74.5,33h3.5v34h-3.5z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,33c1,6 8.5,6.5 8.5,15.5c0,1.8 -0.4,3.3 -1,4.5c0.3,-6.2 -3.6,-8.6 -7.5,-9.5z" />
+</vector>

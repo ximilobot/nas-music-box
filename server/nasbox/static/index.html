@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>NAS 音乐盒</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#f5f6f8">
+<meta name="color-scheme" content="light dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAS 音乐盒">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="brand">NAS 音乐盒</div>
+    <button id="devBtn" class="chip" title="选择音箱"><span id="devName">未选择音箱</span></button>
+    <button id="authChip" class="chip st-checking"><i class="dot"></i><span id="authLabel">连接中</span></button>
+  </header>
+  <div id="banner" hidden></div>
+  <main id="view"></main>
+  <div id="mini" hidden>
+    <div id="miniBar"><i id="miniProg"></i></div>
+    <div class="cover sm" id="miniCover"></div>
+    <div class="meta" id="miniMeta"><b id="miniTitle"></b><span id="miniSub"></span></div>
+    <button class="ib" id="miniToggle" aria-label="播放/暂停"></button>
+    <button class="ib" id="miniNext" aria-label="下一首"></button>
+  </div>
+  <nav id="tabs">
+    <button data-tab="library"><i data-ic="music"></i><span>曲库</span></button>
+    <button data-tab="lists"><i data-ic="list"></i><span>歌单</span></button>
+    <button data-tab="search"><i data-ic="search"></i><span>搜索</span></button>
+    <button data-tab="settings"><i data-ic="gear"></i><span>设置</span></button>
+  </nav>
+</div>
+
+<section id="full" hidden>
+  <div class="full-head">
+    <button class="ib" id="fullClose" aria-label="收起"></button>
+    <div class="src" id="fullSrc"></div>
+    <button class="ib" id="fullQueue" aria-label="播放队列"></button>
+  </div>
+  <div class="cover lg" id="fullCover"></div>
+  <div class="full-title"><div><b id="fullTitle"></b><span id="fullSub"></span></div><button class="ib" id="fullFav" aria-label="收藏"></button></div>
+  <div class="full-err" id="fullErr" hidden></div>
+  <div class="seek"><input type="range" id="seek" min="0" max="1000" value="0"><div class="times"><span id="tCur">0:00</span><span id="tDur">0:00</span></div></div>
+  <div class="ctl">
+    <button class="ib" id="btnMode" aria-label="播放模式"></button>
+    <button class="ib big" id="btnPrev" aria-label="上一首"></button>
+    <button class="ib play" id="btnToggle" aria-label="播放/暂停"></button>
+    <button class="ib big" id="btnNext" aria-label="下一首"></button>
+    <button class="ib" id="btnStop" aria-label="停止"></button>
+  </div>
+  <div class="vol"><i data-ic="vol"></i><input type="range" id="vol" min="0" max="100" value="30"><span id="volNum">30</span></div>
+  <div class="extra">
+    <button class="pill" id="btnSleep">定时关闭</button>
+    <button class="pill" id="btnTts">播报文字</button>
+    <span id="modeLabel" class="muted"></span>
+  </div>
+</section>
+
+<div id="sheet" hidden><div class="sheet-bg"></div><div class="sheet-body" id="sheetBody"></div></div>
+<div id="toast" hidden></div>
+<div id="login" hidden>
+  <div class="login-box">
+    <h2>NAS 音乐盒</h2>
+    <p class="muted">已设置访问密码，请输入后继续</p>
+    <input type="password" id="loginPw" placeholder="访问密码" autocomplete="current-password">
+    <button class="btn primary" id="loginBtn">进入</button>
+    <p class="err" id="loginErr"></p>
+    <button class="btn link" id="loginApp" hidden>App 设置 / 切换服务器</button>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

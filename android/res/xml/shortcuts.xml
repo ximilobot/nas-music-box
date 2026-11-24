@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_settings"
+        android:shortcutId="settings"
+        android:shortcutLongLabel="@string/sc_settings_long"
+        android:shortcutShortLabel="@string/sc_settings_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.nasmusicbox.app.SettingsActivity"
+            android:targetPackage="com.nasmusicbox.app" />
+    </shortcut>
+</shortcuts>
